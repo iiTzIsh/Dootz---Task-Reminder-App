@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Dootz</string>
+    <string name="addrem">Add Your Reminder</string>
+    <string name="allrem">All Reminders</string>
+    <string name="startDes">Never miss tasks again! Stay  schedule reminders</string>
+    <string name="uprem">Upcoming Reminders</string>
+    <string name="norem">No reminders</string>
+</resources>
