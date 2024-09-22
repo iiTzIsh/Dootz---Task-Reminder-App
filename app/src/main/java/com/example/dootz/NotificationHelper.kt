@@ -46,7 +46,7 @@ object NotificationHelper {
             }
         }
 
-        // Create and display the notification
+        // Create and display notification
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(title)

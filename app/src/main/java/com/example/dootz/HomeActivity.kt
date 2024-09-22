@@ -69,7 +69,7 @@ class HomeActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener {
         editor.putString("tasks", updatedTasksJson)
         editor.apply()
 
-        // Update the widget when tasks are saved
+        // Update the widget when tasks saved
         DootzWidgetProvider.updateWidgetData(this)
     }
 

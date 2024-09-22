@@ -32,7 +32,7 @@ class AddReminderActivity : AppCompatActivity() {
         val btnSelectTime: Button = findViewById(R.id.btnSelectTime)
         val btnAddReminder: Button = findViewById(R.id.btnAddReminder)
 
-        // Check is editing a task
+        // Check is editing  task
         val intent = intent
         if (intent.hasExtra("taskTitle")) {
             title.setText(intent.getStringExtra("taskTitle"))

@@ -12,7 +12,7 @@ class TaskReminderReceiver : BroadcastReceiver() {
         // Retrieve task name from intent
         val taskTitle = intent.getStringExtra("taskTitle") ?: "Task"
 
-        // Create intent to open app when notification is clicked
+        // Create intent to open app when notification clicked
         val notificationIntent = Intent(context, HomeActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 

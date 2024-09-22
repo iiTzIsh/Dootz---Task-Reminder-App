@@ -12,7 +12,7 @@ class ReminderBroadcastReceiver : BroadcastReceiver() {
         val taskTitle = intent.getStringExtra("taskTitle")
         val taskDescription = intent.getStringExtra("taskDescription")
 
-        // Log when receiver triggered
+        // Log when receiver trigger
         Log.d("TaskReminderReceiver", "Notification triggered for task: $taskTitle")
 
         val notificationId = System.currentTimeMillis().toInt()
