@@ -32,6 +32,7 @@
         <activity android:name=".ReminderBroadcastReceiver" />
         <activity android:name=".DootzWidgetProvider" />
         <receiver android:name=".TaskReminderReceiver" />
+        <activity android:name=".StopwatchActivity" />
 
         <receiver android:name=".ReminderBroadcastReceiver" />
         <receiver android:name=".DootzWidgetProvider"

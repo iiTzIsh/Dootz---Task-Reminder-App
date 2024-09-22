@@ -28,7 +28,7 @@ class HomeActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener {
         // Set up RecyclerView and FloatingActionButton
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         val fabAdd: FloatingActionButton = findViewById(R.id.fab_add)
-
+        val fabStopwatch: FloatingActionButton = findViewById(R.id.fab_stopwatch)
 
         taskList = mutableListOf()
         taskAdapter = TaskAdapter(taskList, this)
@@ -39,9 +39,13 @@ class HomeActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener {
         // Load tasks from SharedPreferences
         loadTasks()
 
-
         fabAdd.setOnClickListener {
             startActivity(Intent(this, AddReminderActivity::class.java))
+        }
+
+        // Navigate to the Stopwatch Activity
+        fabStopwatch.setOnClickListener {
+            startActivity(Intent(this, StopwatchActivity::class.java))
         }
 
         checkNotificationPermission()
@@ -57,7 +61,6 @@ class HomeActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener {
 
         taskAdapter.notifyDataSetChanged()
 
-
         DootzWidgetProvider.updateWidgetData(this)
     }
 
@@ -69,7 +72,7 @@ class HomeActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener {
         editor.putString("tasks", updatedTasksJson)
         editor.apply()
 
-        // Update the widget when tasks saved
+        // Update the widget when tasks are saved
         DootzWidgetProvider.updateWidgetData(this)
     }
 
