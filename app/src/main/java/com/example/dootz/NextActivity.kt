@@ -10,6 +10,7 @@ class NextActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_next)
 
+        //button set
         val nextButton: Button = findViewById(R.id.next_button)
         nextButton.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java))

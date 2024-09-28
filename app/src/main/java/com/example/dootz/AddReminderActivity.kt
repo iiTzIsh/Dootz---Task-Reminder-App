@@ -17,14 +17,15 @@ import java.util.*
 
 class AddReminderActivity : AppCompatActivity() {
 
+    // Variables to store the selected date, time, and task position
     private lateinit var selectedDate: String
     private lateinit var selectedTime: String
     private var taskPosition: Int? = null
-    private var calendar = Calendar.getInstance()
+    private var calendar = Calendar.getInstance()  // Calendar instance to handle date and time
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_reminder)
+        setContentView(R.layout.activity_add_reminder)  // Set the layout for the activity
 
         val title: EditText = findViewById(R.id.etTitle)
         val description: EditText = findViewById(R.id.etDescription)
@@ -32,7 +33,7 @@ class AddReminderActivity : AppCompatActivity() {
         val btnSelectTime: Button = findViewById(R.id.btnSelectTime)
         val btnAddReminder: Button = findViewById(R.id.btnAddReminder)
 
-        // Check is editing  task
+        // Check if the intent contains task details, which indicates editing a task
         val intent = intent
         if (intent.hasExtra("taskTitle")) {
             title.setText(intent.getStringExtra("taskTitle"))
@@ -98,10 +99,12 @@ class AddReminderActivity : AppCompatActivity() {
         }
     }
 
+    // Function to save the task to SharedPreferences
     private fun saveTaskToSharedPreferences(taskTitle: String, taskDescription: String) {
         val sharedPreferences = getSharedPreferences("DootzTasks", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
+        // Use Gson to convert the task list to and from JSON
         val gson = Gson()
         val tasksJson = sharedPreferences.getString("tasks", "[]") ?: "[]"
         val taskListType = object : TypeToken<MutableList<Task>>() {}.type
@@ -123,7 +126,10 @@ class AddReminderActivity : AppCompatActivity() {
         editor.apply()
     }
 
+
+    // Function to schedule a notification using AlarmManager
     private fun scheduleNotification(taskTitle: String, taskDescription: String, calendar: Calendar) {
+        // Get the AlarmManager service
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         // Prepare the intent to trigger the BroadcastReceiver
@@ -142,6 +148,7 @@ class AddReminderActivity : AppCompatActivity() {
         // Set the alarm to trigger at the exact date and time
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
 
+        // Show a toast to confirm the reminder has been set
         Toast.makeText(this, "Reminder set for $selectedDate at $selectedTime", Toast.LENGTH_SHORT).show()
     }
 

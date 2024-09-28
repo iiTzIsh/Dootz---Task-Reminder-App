@@ -1,11 +1,13 @@
 package com.example.dootz
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
 import android.widget.Button
 import android.widget.Chronometer
 import androidx.appcompat.app.AppCompatActivity
 import android.content.SharedPreferences
+import android.widget.ImageButton
 
 class StopwatchActivity : AppCompatActivity() {
 
@@ -27,11 +29,20 @@ class StopwatchActivity : AppCompatActivity() {
         stopButton = findViewById(R.id.stopButton)
         resetButton = findViewById(R.id.resetButton)
 
+        val iconButton: ImageButton = findViewById(R.id.iconButton)
+
+        iconButton.setOnClickListener {
+            // Create an Intent to navigate to the SecondActivity
+            val intent = Intent(this, HomeActivity::class.java)
+            // Start the second activity
+            startActivity(intent)
+        }
+
         sharedPreferences = getSharedPreferences("StopwatchPrefs", MODE_PRIVATE)
 
         // Restore saved state
         timeWhenStopped = sharedPreferences.getLong("timeWhenStopped", 0L)
-        isRunning = sharedPreferences.getBoolean("isRunning", false)
+        isRunning = sharedPreferences.getBoolean("isRunning", false)   // SharedPreferences to save and restore stopwatch state
 
         if (isRunning) {
             chronometer.base = SystemClock.elapsedRealtime() + timeWhenStopped
@@ -66,11 +77,13 @@ class StopwatchActivity : AppCompatActivity() {
         }
     }
 
+    // Save the stopwatch state when the activity is paused
     override fun onPause() {
         super.onPause()
         saveStopwatchState()
     }
 
+    // Function to save the stopwatch state (timeWhenStopped and isRunning) to shared preferences
     private fun saveStopwatchState() {
         val editor = sharedPreferences.edit()
         editor.putLong("timeWhenStopped", timeWhenStopped)

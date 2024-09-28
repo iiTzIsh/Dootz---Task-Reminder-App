@@ -16,7 +16,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class HomeActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener {
-
+    // Variables for the task list and adapter
     private lateinit var taskList: MutableList<Task>
     private lateinit var taskAdapter: TaskAdapter
     private val REQUEST_NOTIFICATION_PERMISSION = 1001
@@ -25,7 +25,7 @@ class HomeActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // Set up RecyclerView and FloatingActionButton
+        // Initialize RecyclerView and FloatingActionButton for adding tasks and navigating to the stopwatch
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         val fabAdd: FloatingActionButton = findViewById(R.id.fab_add)
         val fabStopwatch: FloatingActionButton = findViewById(R.id.fab_stopwatch)
@@ -51,6 +51,7 @@ class HomeActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener {
         checkNotificationPermission()
     }
 
+    // Load tasks from SharedPreferences and update the task list and RecyclerView
     private fun loadTasks() {
         val sharedPreferences = getSharedPreferences("DootzTasks", MODE_PRIVATE)
         val gson = Gson()
@@ -61,9 +62,11 @@ class HomeActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener {
 
         taskAdapter.notifyDataSetChanged()
 
+        // Update the widget with the new data
         DootzWidgetProvider.updateWidgetData(this)
     }
 
+    // Save the current task list to SharedPreferences
     private fun saveTasks() {
         val sharedPreferences = getSharedPreferences("DootzTasks", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -102,6 +105,7 @@ class HomeActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener {
         }
     }
 
+    // Handle the edit button click from the TaskAdapter
     override fun onEditClick(position: Int) {
         val task = taskList[position]
         val intent = Intent(this, AddReminderActivity::class.java)
@@ -112,6 +116,7 @@ class HomeActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener {
         startActivity(intent)
     }
 
+    // Handle the delete button click from the TaskAdapter
     override fun onDeleteClick(position: Int) {
         taskList.removeAt(position)
         taskAdapter.notifyItemRemoved(position)
@@ -119,6 +124,7 @@ class HomeActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener {
         Toast.makeText(this, "Task deleted", Toast.LENGTH_SHORT).show()
     }
 
+    // Handle the task checkbox change (task completion status)
     override fun onTaskChecked(position: Int, isChecked: Boolean) {
         taskList[position].isCompleted = isChecked
         saveTasks()

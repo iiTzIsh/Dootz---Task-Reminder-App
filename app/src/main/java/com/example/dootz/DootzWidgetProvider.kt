@@ -17,7 +17,7 @@ class DootzWidgetProvider : AppWidgetProvider() {
         for (appWidgetId in appWidgetIds) {
             val views = RemoteViews(context.packageName, R.layout.widget_layout)
 
-            // Set click handler to open  app when clicked
+            // Set click handler to open app when clicked
             val intent = Intent(context, HomeActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
             views.setOnClickPendingIntent(R.id.tvWidgetTitle, pendingIntent)

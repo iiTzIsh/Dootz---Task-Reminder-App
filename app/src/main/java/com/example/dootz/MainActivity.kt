@@ -25,8 +25,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, NextActivity::class.java))
             finish()
         }, 3000)
-    } 
+    }
 
+    // Function to check if the app has notification permission
     private fun checkNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Handle the result of the permission request
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

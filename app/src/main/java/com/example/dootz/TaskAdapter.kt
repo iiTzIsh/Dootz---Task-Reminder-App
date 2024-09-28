@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 class TaskAdapter(private val taskList: MutableList<Task>, private val listener: TaskAdapterListener) :
     RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
+    // For handling click and check events on the task items
     interface TaskAdapterListener {
         fun onEditClick(position: Int)
         fun onDeleteClick(position: Int)
         fun onTaskChecked(position: Int, isChecked: Boolean)
     }
 
+    // ViewHolder class to hold references to views in each task item
     class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.tvTaskTitle)
         val description: TextView = view.findViewById(R.id.tvTaskDescription)
@@ -39,8 +41,9 @@ class TaskAdapter(private val taskList: MutableList<Task>, private val listener:
 
         holder.checkBox.isChecked = task.isCompleted
 
+        // Set up the edit button click listener to trigger the onEditClick callback
         holder.editButton.setOnClickListener {
-            listener.onEditClick(position)
+            listener.onEditClick(position)   // Pass the position of the task being edited
         }
 
         holder.deleteButton.setOnClickListener {
